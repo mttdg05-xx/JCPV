@@ -34,10 +34,10 @@
 
 
 var server = require("./include/lib/server");
-var router = require("./include/lib/router");
+//var router = require("./include/lib/router");
 var requestHandlers = require("./include/lib/requestHandlers");
 
 var currentDirectory = process.cwd();
 
-server.start(router.route);
+server.start();
 

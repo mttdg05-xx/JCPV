@@ -34,14 +34,40 @@
 
 var http = require("http");
 var url = require("url");
+var requestHandlers = require("./requestHandlers");
 
-function start(route){
+function start(){
+
+  var loadFile = requestHandlers.loadFile();
+  var query_id;
+
   function onRequest(request, response){
-    var pathname = url.parse(request.url).pathname;
-    console.log("Request for " + pathname + " received.");
 
-    route(pathname, response, request);
-  }
+    var pathname = url.parse(request.url).pathname;
+    console.log("!!!!!!!!!1" + pathname);
+   
+
+    if("/" === pathname) {
+      console.log("Request for " + pathname + " received.");
+      requestHandlers.start(response, request);
+      }
+
+    else  if(pathname.substring(0, 9) === "/include/") {
+      console.log("Request for " + pathname + " received.");
+      loadFile.load_include(response, request, pathname);
+
+      }
+
+    else if(pathname.substring(0, 7) === "/updata") {
+
+      // Ex : query_id = "id=5"
+      query_id = parseFloat(url.parse(request.url).query.slice(3));
+      console.log("Request for " + url.parse(request.url).query + " received.");
+      loadFile.load_up_data(response, request, query_id);
+      }
+    }
+
+  
   http.createServer(onRequest).listen(8888);
   console.log("Server has started.");
 }

@@ -40,8 +40,7 @@ var fs = require("fs"),
     argv = process.argv.splice(2),
     taggen = require("./../taggen"),
     htmlgen = require("./../htmlgen");
-    //$ = require("jquery");
-    //js2js = require("js2js");
+  
 
 function start(response, request) {
     var result = [];
@@ -62,12 +61,6 @@ function start(response, request) {
                               '<script type="text/javascript" src=/include/lib/test.js></script>'                     + 
                               '<script type="text/javascript" src=/include/jquery.jstree.js></script>'        + 
                               '<script type="text/javascript" src=/include/json2.js></script>'                +     
-                              //'<script type="text/javascript" src=' + currentPath + '/lib/requestHandlers.js> </script>'         + 
-                              //'<script type="text/javascript" src=/taggen.js> </script>'                      + 
-                              //'<script type="text/javascript" src=/htmlgen.js> </script>'                     + 
-                              //'<script type="text/javascript" src=/node_modules/js2js/lib/js2js-lib.js> </script>'+
-                              //'<script type="text/javascript" src=/node_modules/js2js/lib/my_js2js.js> </script>'+
-
                    '</head>' + 
                    '<body onload=" ">' + 
                               '<script>' +
@@ -80,9 +73,7 @@ function start(response, request) {
                                           'function(event, data){' + 
                                                '$.get(data.rslt.obj.data("id"),' + 
                                                      'function(dat){ $("#me").html(dat);' + 
-                                                          'alert(data.rslt.obj.data("lo")); var node_selected_name = data.rslt.obj.data("id").replace(/^.*[\\\/]/, "");' + 
-                                                          'var length = node_selected_name.length;' +
-                                                          //'if(node_selected_name.substring(length - 3) === ".js") tagify(dat, node_selected_name);' + 
+                                                          'var node_selected_name = data.rslt.obj.data("id").replace(/^.*[\\\/]/, "");' + 
                                                           'prettyPrint();});   });' +
                                           '});' +
                               '</script>' + 
@@ -95,30 +86,15 @@ function start(response, request) {
         '</html>');
 
 
+
     response.end();
 
 
 }
 
 
-
-
-
-// check for errors 
-// => if (errors) do something;
-//
-
-
-function doIt(){
-  console.log('---------------------------');
-  console.log( "" +document.getElementById("me").innerHTML);
-  console.log('---------------------------');
-
-
-} 
-
 // itemList contains relative paths
-function to_json(currentPath, itemList, result) {
+function to_json(next, files, currentPath, itemList, result) {
 
     var children = [],
         itemPath = currentPath + "/" + itemList,
@@ -131,13 +107,15 @@ function to_json(currentPath, itemList, result) {
         item_name = "" + itemPath.replace(/^.*[\\\/]/, '');
 
         if (current.substring(length - 3, length) === js_ext) {
+            console.log("=== " + itemPath);
+            files.push(rootPath + itemPath);
             result.push({
                 data: {
                     title: item_name,
                     icon: "/include/img/file.png"
                 },
                 metadata: {
-                    id: current
+                    id: "/updata?id=" + next.id++
                 }
 
             }
@@ -156,14 +134,14 @@ function to_json(currentPath, itemList, result) {
 
             if (stat && stat.isDirectory()) {
                 children = [];
-                to_json(currentPath, item[i], children);
+                to_json(next, files, currentPath, item[i], children);
                 result.push({
                     data: {
                         title: item_name
                     },
                     children: children,
                     metadata: {
-                        id:  current
+                        //id:  next.id++
                     },
                 });
             }
@@ -172,13 +150,14 @@ function to_json(currentPath, itemList, result) {
 
                 length = current.length;
                 if (current.substring(length - 3, length) === js_ext) {
+                    files.push(rootPath + current);
                     result.push({
                         data: {
                             title: item_name,
                             icon: "/include/img/file.png"
                         },
                         metadata: {
-                            id:  current
+                            id:  "/updata?id=" + next.id++
                         }
                     }
                     );
@@ -190,81 +169,104 @@ function to_json(currentPath, itemList, result) {
 }
 
 // ItemList contains the set of relative paths
+var up_data = [];
 function get_json(itemList, result) {
     var temp_result = [];
+    var next = {id : 0};
+    var files = [];
     for (k in itemList) {
       var currentPath = rootPath;
-        to_json(rootPath, itemList[k], temp_result);
+        to_json(next, files, rootPath, itemList[k], temp_result);
         result.push(temp_result);
+    }
+    up_data = files;
+}
+
+
+function loadFile() {
+
+/*
+  var loaded_include_files = [];
+  loaded_include_files[0] =  fs.readFileSync(rootPath + '/include/prettify/prettify.css'); 
+  loaded_include_files[1] =  fs.readFileSync(rootPath + '/include/myCss/index.css)';
+  loaded_include_files[2] =  fs.readFileSync(rootPath + '/include/prettify/prettify.js'); 
+  loaded_include_files[3] =  fs.readFileSync(rootPath + '/include/jquery-1.7.1.min.js');
+  loaded_include_files[4] =  fs.readFileSync(rootPath + '/include/lib/test.js'); 
+  loaded_include_files[5] =  fs.readFileSync(rootPath + '/include/jquery.jstree.js');
+  loaded_include_files[6] =  fs.readFileSync(rootPath + '/include/json2.js');              
+*/
+  var tagged_updata_files = [];
+  var filename;
+  function load_err(response, error){
+
+      response.writeHead(500, {
+
+        "Content-Type": "text/plain"
+
+        });
+
+      response.write(error + "\n");
+      response.end();
+
+      }
+
+    return {
+      load_include: function(response, request, pathname){
+        console.log("ROOT : " + rootPath + pathname);
+        fs.readFile(rootPath + pathname, "binary", function(error, file){
+
+          if (error)  load_err(response, error);
+          else{
+            response.writeHead(200, {
+            "Content-Type": "text/html"
+            });
+
+          response.write(file, "binary");
+          response.end();
+
+          }
+
+           
+        });
+                
+      },
+
+      load_up_data: function(response, request, id){
+
+        if(tagged_updata_files[id] === undefined){
+          filename = up_data[id].replace(/^.*[\\\/]/, '');
+          fs.readFile(up_data[id], "binary", function(error, file) {
+            if (error)  load_err(response, error);
+
+            else{
+
+              tagged_updata_files[id] = taggen.tagify(file, filename);
+              response.writeHead(200, {
+                "Content-Type": "text/html"
+              });
+              response.write(tagged_updata_files[id], "binary");
+              response.end();
+            }
+          });
+          
+        } else{
+
+          response.writeHead(200, {
+            "Content-Type": "text/html"
+            });
+          response.write(tagged_updata_files[id], "binary");
+          response.end();
+        
+        }
+        
+      }
+
     }
 }
 
 
-var loadedFiles = [];
-function loadFile(response, request) {
-
-    var relative_path = url.parse(request.url).pathname;
-    var abs_path = rootPath + relative_path;
-    fs.readFile(abs_path, "binary", function(error, file) {
-        if (error) {
-            response.writeHead(500, {
-                "Content-Type": "text/plain"
-            });
-            response.write(error + "\n");
-
-            //response.end();
-        } 
-        else if(loadedFiles["'" + relative_path + "'"] !== undefined){
-          response.writeHead(200, {
-            "Content-Type": "text/html"
-
-            });
-
-          response.write(loadedFiles["'" + relative_path + "'"], "binary");
-          console.log("Loaded@");
-
- 
-        }
-                    
-        else {
 
 
-          if(relative_path.substring(0, 8) === "/include"){
-
-            response.writeHead(200, {
-            "Content-Type": "text/html"
-
-            });
-
-          response.write(file, "binary");
-                   //response.end();
-          }
-          else{
-            var filename = relative_path.replace(/^.*[\\\/]/, '');
-            var tagged_file = taggen.tagify(file, filename);
-            console.log('-------------------------------');
-            console.log(tagged_file);
-             response.writeHead(200, {
-            "Content-Type": "text/html"
-
-            });
-
-          response.write(tagged_file, "binary");
-
-        
-          }
-          loadedFiles["'" + relative_path + "'"] = file;
-  //response.end();
-
-
-        }
-
-    
-      response.end();
-
-    });
-
-}
 
 
 exports.start = start;

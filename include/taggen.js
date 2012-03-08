@@ -157,6 +157,10 @@ function parse(orig_js, filename) {
     var source = orig_js;
 
     // make sure we have unix line endings
+    console.log("-----------------------------------------");
+    console.log(source);
+console.log("-----------------------------------------");
+
     source = source.replace(/\r\n/g, '\n');
     source = source.replace(/\r/g, '\n');
    
