@@ -38,8 +38,8 @@ var fs = require("fs"),
     rootPath = process.cwd(),
     url = require("url"),
     argv = process.argv.splice(2),
-    taggen = require("./../taggen"),
-    htmlgen = require("./../htmlgen");
+    taggen = require("./../taggen");
+    //htmlgen = require("./../htmlgen");
   
 
 function start(response, request) {
@@ -48,6 +48,7 @@ function start(response, request) {
 
     
     get_json(itemList, result);
+    console.log(result);
 
     response.writeHead(200, {
         "Content-Type": "text/html"
@@ -196,7 +197,7 @@ function loadFile() {
   loaded_include_files[6] =  fs.readFileSync(rootPath + '/include/json2.js');              
 */
   var tagged_updata_files = [];
-  var filename;
+  var filename, tmp, json_object, length, elements = [];
   function load_err(response, error){
 
       response.writeHead(500, {
@@ -239,13 +240,38 @@ function loadFile() {
             if (error)  load_err(response, error);
 
             else{
+              fs.readFile('/home/a1/JCPV/include/test.json', "binary", function(err, json_file){
+              if (error)  load_err(response, error);
+              else{
+                json_object = JSON.parse(json_file).data;
+                length = json_object.length;
+                for(var i = 0; i < length; i++ ){
+                  tmp = json_object[i];
+                  console.log("5");
+                  console.log(tmp.target_path);
+                  console.log(up_data[id]);
+                  if(tmp.target_path === up_data[id]){
+                    elements.push({
+                      start : tmp.start,
+                      end : tmp.end,
+                      kind : ["test"],
+                      value : tmp.value
+                    });
+                  }
+                }
 
-              tagged_updata_files[id] = taggen.tagify(file, filename);
-              response.writeHead(200, {
-                "Content-Type": "text/html"
-              });
+                console.log(">>>>>>>>>>>>>>>>> " + JSON.stringify(elements));
+
+
+                tagged_updata_files[id] = taggen.tagify(file, filename, elements);
+                response.writeHead(200, {
+                  "Content-Type": "text/html"
+                });
               response.write(tagged_updata_files[id], "binary");
               response.end();
+              }
+            });
+
             }
           });
           

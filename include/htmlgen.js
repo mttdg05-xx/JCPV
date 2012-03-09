@@ -57,10 +57,11 @@ StringBuffer.prototype.toString = function () {
 
 //------------------------------------------------------------------------------ 
 
-function JSElement(start, end, classes) {
+function JSElement(start, end, classes, value) {
     this.start = start;
     this.end = end;
     this.classes = classes !== undefined ? classes : [];
+    this.value = value !== undefined ? value : 0;
     this.contained = [];
 }
 
@@ -152,7 +153,10 @@ JS2HTML.prototype._insertTags = function (start, end, elements, sb) {
         var e = elements[i];
         var id = 'loc' + e.start + '_' + e.end;
         sb.write(this.origJS.substring(prevLoc, e.start));
-        sb.write('<span id="' + id + '" class="' + e.classes.join(' ') + '">');
+        if(e.value !== 0)
+          sb.write('<span id="' + id + '" class="' + e.classes.join(' ') + '" title=' + e.value  + '>');
+        else
+          sb.write('<span id="' + id + '" class="' + e.classes.join(' ') + '">');
         if (e.contained) {
             this._insertTags(e.start, e.end, e.contained, sb);
         } else {
@@ -205,7 +209,8 @@ function genHtmlWithTags(orig_js, elements){
     js_elements[i] = new JSElement(
         elements[i].start,
         elements[i].end,
-        elements[i].kind
+        elements[i].kind,
+        elements[i].value !== undefined ? elements[i].value : 0
         );
   }
 

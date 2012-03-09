@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="iso-8859-1"?><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Guy Lapalme - Énoncé du TP2 - A11</title>
+<meta name="title" content="Énoncé du TP2 - A11" />
+<meta name="author" content="Administrator" />
+<meta name="description" content="Guy Lapalme, Professeur, Département d'informatique et de recherche opérationnelle, Université de Montréal" />
+<meta name="keywords" content="Guy Lapalme, traitement de la langue naturelle, traduction assistée par ordinateur, extraction d'information, résumé automatique, génération de texte" />
+<meta name="Generator" content="Joomla! - Copyright (C) 2005 - 2006 Open Source Matters. All rights reserved." />
+<meta name="robots" content="index, follow" />
+	<link rel="shortcut icon" href="http://www.iro.umontreal.ca/~lapalme/Joomla/images/favicon.ico" />
+	<link rel="stylesheet" href="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/css/template_css.css" type="text/css"/><link rel="stylesheet" href="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/css/css_color_blue.css" type="text/css"/></head>
+<body>
+<div id="accessibility">
+<a href="index.php#menu"> Menu</a>
+<a href="index.php#content"> Content/Inhalt</a>
+</div>
+<div id="pagewidth-800" >
+<div id="header" >
+<div id="top-top">
+<div id="search">
+
+<form action="index.php?option=com_search" method="get">
+	<div class="search">
+		<input name="searchword" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="20" value="Rechercher..."  onblur="if(this.value=='') this.value='Rechercher...';" onfocus="if(this.value=='Rechercher...') this.value='';" />	</div>
+
+	<input type="hidden" name="option" value="com_search" />
+	<input type="hidden" name="Itemid" value="" />	
+</form></div>
+ <script type="text/javascript">
+      <!--//--><![CDATA[//><!--
+      sfHover = function() {
+      	var sfEls = document.getElementById("topmenu").getElementsByTagName("li");
+      	for (var i=0; i<sfEls.length; i++) {
+      		sfEls[i].onmouseover=function() {
+      			this.className+="sfhover";
+      		}
+      		sfEls[i].onmouseout=function() {
+      			this.className=this.className.replace(new RegExp("sfhover\\b"), "");
+      		}
+      	}
+      }
+      if (window.attachEvent) window.attachEvent("onload", sfHover);
+      
+      //--><!]]>
+ </script>
+<div id="topmenu">
+<ul id="mainlevel-nav"><li><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_contact&amp;Itemid=3" class="mainlevel-nav" >Contact</a></li><li><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_weblinks&amp;Itemid=22" class="mainlevel-nav" >Liens intéressants</a></li><li><a href="http://rali.iro.umontreal.ca/" class="mainlevel-nav" >RALI</a></li><li><a href="http://www.iro.umontreal.ca/" class="mainlevel-nav" >DIRO</a></li><li><a href="http://www.umontreal.ca/" class="mainlevel-nav" >Université de Montréal</a></li></ul></div>
+</div>
+<div class="clr"></div>
+<div id="top-bottom">
+<a href="index.php"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images_blue/logo.gif" border="0" width="250" height="80" /></a></div>
+ 
+</div>
+<div id="outer-800" >
+<div id="pathway"> <span class="pathway"><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php" class="pathway">Accueil</a> <img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/arrow.png" alt="arrow" /> <a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=22&amp;Itemid=46" class="pathway">Enseignement</a> <img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/arrow.png" alt="arrow" /> <a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=5&amp;id=24&amp;Itemid=51" class="pathway">IFT3225</a> <img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/arrow.png" alt="arrow" />   Énoncé du TP2 - A11 </span> </div>
+<div id="leftcol"><a name="menu"></a>
+		<div class="module">
+			<div>
+				<div>
+					<div>
+						<h3>Rubriques</h3>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr align="left"><td><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_frontpage&amp;Itemid=1" class="mainlevel" >Accueil</a></td></tr>
+<tr align="left"><td><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=22&amp;Itemid=46" class="mainlevel" >Enseignement</a>
+
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=5&amp;id=30&amp;Itemid=56" class="sublevel" >IFT1025</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=5&amp;id=24&amp;Itemid=51" class="sublevel" id="active_menu">IFT3225</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=5&amp;id=26&amp;Itemid=54" class="sublevel" > IFT6281</a></div>
+</td></tr>
+<tr align="left"><td><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=section&amp;id=4&amp;Itemid=27" class="mainlevel" >Recherche</a>
+
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://rali.iro.umontreal.ca/EnvironmentalInfo/index.fr.html" class="sublevel" >Présentation d'information</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://rali.iro.umontreal.ca/Resume/index.fr.html#asli" class="sublevel" >Résumé automatique</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://rali.iro.umontreal.ca/Technologies/concordancierBilingue.fr.html" class="sublevel" >Outils d'aide à la traduction</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://agil.lif.univ-mrs.fr/" class="sublevel" >Génération de texte</a></div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/ForestInsteadOfTheTrees/" class="sublevel" >XML</a></div>
+</td></tr>
+<tr align="left"><td><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=18&amp;Itemid=41" class="mainlevel" >Étudiants</a>
+
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=7&amp;id=19&amp;Itemid=48" class="sublevel" >Diplômés</a>
+
+<div style="padding-left: 8px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent2.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=21&amp;Itemid=45" class="sublevel" >Maîtrises</a></div>
+<div style="padding-left: 8px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent2.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=20&amp;Itemid=44" class="sublevel" >Doctorats</a></div>
+<div style="padding-left: 8px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent2.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=26&amp;Itemid=49" class="sublevel" >Postdocs</a></div>
+</div>
+<div style="padding-left: 4px"><img src="http://www.iro.umontreal.ca/~lapalme/Joomla/templates/madeyourweb-ext/images/indent1.png" alt="" /><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=124&amp;Itemid=57" class="sublevel" >Stagiaires premier cycle</a></div>
+</td></tr>
+<tr align="left"><td><a href="http://rali.iro.umontreal.ca/Publications/search.do?query=lapalme" class="mainlevel" >Publications</a></td></tr>
+<tr align="left"><td><a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=category&amp;sectionid=5&amp;id=30&amp;Itemid=55" class="mainlevel" >Enseignement</a></td></tr>
+</table>					</div>
+				</div>
+			</div>
+		</div>
+		 
+</div>
+ 
+<div id="maincol-wide-800" >
+
+ 
+<div class="clr"></div>
+<div class="content"><a name="content"></a>				<table class="contentpaneopen">
+			<tr>
+								<td class="contentheading" width="100%">
+					Énoncé du TP2 - A11									</td>
+							<td align="right" width="100%" class="buttonheading">
+				<a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;do_pdf=1&amp;id=122" target="_blank" onclick="window.open('http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;do_pdf=1&amp;id=122','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" title="Convertir en PDF">
+					<img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/pdf_button.png"  alt="Convertir en PDF" name="Convertir en PDF" align="middle" border="0" /></a>
+			</td>
+							<td align="right" width="100%" class="buttonheading">
+					<a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;task=view&amp;id=122&amp;pop=1&amp;page=0&amp;Itemid=51" target="_blank" onclick="window.open('http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;task=view&amp;id=122&amp;pop=1&amp;page=0&amp;Itemid=51','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" title="Version imprimable">
+						<img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/printButton.png"  alt="Version imprimable" name="Version imprimable" align="middle" border="0" /></a>
+				</td>
+							<td align="right" width="100%" class="buttonheading">
+				<a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;task=emailform&amp;id=122&amp;itemid=51" target="_blank" onclick="window.open('http://www.iro.umontreal.ca/~lapalme/Joomla/index2.php?option=com_content&amp;task=emailform&amp;id=122&amp;itemid=51','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=400,height=250,directories=no,location=no'); return false;" title="Suggérer par mail">
+					<img src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/M_images/emailButton.png"  alt="Suggérer par mail" name="Suggérer par mail" align="middle" border="0" /></a>
+			</td>
+						</tr>
+			</table>
+			
+		<table class="contentpaneopen">
+				<tr>
+			<td valign="top" colspan="2">
+				<h1>IFT3225 - TP2 - A11</h1>
+<h1>Scripting Client</h1>
+<h1>Remplir une grille de mots-crois&eacute;s <br /></h1>
+<p align="left">Le but de ce TP est de vous familiariser avec la programmation du c&ocirc;t&eacute; client via la manipulation de la structure DOM &agrave; l'aide de Javascript. Une fois ceci assimil&eacute;, vous pourrez aborder le lien avec le serveur dans le prochain TP.</p>
+<p align="left">Vous devez r&eacute;aliser une application en Javascript qui permet de remplir une grille de mots-crois&eacute;s pr&eacute;d&eacute;finie. La grille s'affiche sur une page HTML et lorsque l'usager se d&eacute;place dans la grille soit avec la souris ou les fl&egrave;ches, la d&eacute;finition du mot courant s'affiche.&nbsp;</p>
+<p align="left">L'interface&nbsp; pour interagir avec la grille est la suivante:</p>
+<ul style="text-align: left;">
+<li>Cliquez sur une case pour s&eacute;lectionner la case courante affich&eacute;e en jaune. Le mot o&ugrave; la case courante se trouve est affich&eacute;e en gris. La d&eacute;finition de ce mot s'affiche &agrave; droite de la grille.</li>
+<li>Les fl&egrave;ches permettent de d&eacute;placer la case courante dans la grille</li>
+<li>La barre d'espacement permet de changer l'orientation actuel des mots touchant &agrave; la case courante.</li>
+<li>Taper une lettre inscrit la lettre majuscule dans la case courante et passe &agrave; la suivante dans la direction actuelle.</li>
+<li>Si la lettre tap&eacute;e ne correspond pas &agrave; celle de la solution, l'afficher en rouge.</li>
+<li>Taper un ? inscrit la lettre de la solution dans la case courante. La case s'affiche en bleu pour indiquer le "cheat" et ce jusqu'&agrave; la fin.</li>
+<li>Lorsque la grille est termin&eacute;e, il faut afficher le temps que l'usager a pris pour remplir la grille</li>
+</ul>
+<p style="text-align: left;">Vos pages web devraient &ecirc;tre &eacute;crites en XHTML valide (1.0 Strict) et utiliser des fichiers s&eacute;par&eacute;s pour les CSS et le Javascript. Votre TP sera test&eacute; sous FireFox dans l'environnement du DIRO.</p>
+<p style="text-align: left;">La grille devrait &ecirc;tre repr&eacute;sent&eacute;e sous forme de table DOM et l'affichage des couleurs dans les cases devrait utiliser des classes CSS. Si vous &ecirc;tes &agrave; l'aise avec l'utilisation d'un framework Javascript (p.e. jQuery, Prototype ou un autre) vous pouvez le faire, mais pour ce TP vous pourriez vous limiter &agrave; l'utilisation du&nbsp;<em>micro-framework&nbsp;</em>(8 fonctions)&nbsp;<span style="font-family: courier; text-decoration: underline;"><a href="http://www.iro.umontreal.ca/~lapalme/ift3225/TP2/IFT3225.js" target="_blank">IFT3225.js</a></span>&nbsp;...</p>
+<p style="text-align: left;">Pour les grilles de mots crois&eacute;s, il existe un format propri&eacute;taire de donn&eacute;es: les fichiers&nbsp;<span style="font-family: courier; text-decoration: underline;">.puz</span>&nbsp;d&eacute;velopp&eacute;s par&nbsp;<a href="http://www.litsoft.com/" target="_blank">Literate Software</a>&nbsp;qui permettent de conserver les grilles et leur solutions. Il y a plusieurs applications qui utilisent des fichiers de ce type pour permettre de r&eacute;soudre ces grilles sur ordinateur ou d'afficher des solutions partielles.&nbsp;&nbsp;<strong>Literate Software</strong>&nbsp;donne une application pour lire ces fichiers mais vend le programme pour les &eacute;crire. Ces fichiers sont dans format&nbsp;<em>presque binaire,</em>&nbsp;mais quand m&ecirc;me d&eacute;codable quand on connait l'organisation des d&eacute;finitions des mots crois&eacute;s en anglais... Ce format d&eacute;crivant la grille et sa solution vous sera expliqu&eacute; plus en d&eacute;tail en d&eacute;monstration. La grille ci-dessous correspond &agrave;&nbsp;<span style="font-family: courier; text-decoration: underline;"><a href="http://www.iro.umontreal.ca/~lapalme/ift3225/TP2/Grilles/moyenne2.js" target="_blank">moyenne2.js</a></span>&nbsp;.</p>
+<p style="text-align: left;">Pour les besoins de ce TPs, les grilles sont plut&ocirc;t fournies en format JSON (fichier&nbsp;<span style="font-family: courier; text-decoration: underline;">.js</span>) produit par le programme&nbsp;<a href="http://www.iro.umontreal.ca/~lapalme/ift3225/TP2/Puzzle.java" target="_blank"><span style="font-weight: normal;"><span style="font-family: courier; text-decoration: underline;">Puzzle.java</span></span></a>, que je vous fournis au cas o&ugrave; vous voudriez transformer d'autre fichiers&nbsp;<span style="font-family: courier; text-decoration: underline;">.puz</span>&nbsp;.&nbsp;<a href="http://www.iro.umontreal.ca/~lapalme/ift3225/TP2/Grilles" target="_blank">Ce r&eacute;pertoire</a>&nbsp;contient quelques autres grilles en format puz et JSON que vous pourriez utiliser pour tester votre programme.</p>
+<div style="text-align: left;"><strong>La figure suivante montre un exemple d'une interface possible lorsque l'usager charge votre page.</strong></div>
+<p align="center"><img style="border: 1px solid black;" title="Grille initiale" src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/stories/motscroisesinjs.jpg" alt="Grille initiale" width="600" height="374" /></p>
+<p style="text-align: left;"><strong>La figure suivante montre l'affichage final, une fois qu'il aura rempli correctement sa grille avec l'interface, mais il avait demand&eacute; l'aide pour la premi&egrave;re ligne.</strong></p>
+<p style="text-align: left;"><img style="border: 1px solid black;" title="Grille remplie" src="http://www.iro.umontreal.ca/~lapalme/Joomla/images/stories/motscroisesenjs2.jpg" alt="Grille remplie" width="600" height="374" /></p>
+<h2>Remise</h2>
+<p align="left">La remise consiste en envoyer un courriel au 
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = '&#109;a' + 'i&#108;' + '&#116;o';
+ var path = 'hr' + 'ef' + '=';
+ var addy86290 = 'd&#105;ft3225' + '&#64;';
+ addy86290 = addy86290 + '&#105;r&#111;' + '&#46;' + '&#117;m&#111;ntr&#101;&#97;l' + '&#46;' + 'c&#97;';
+ var addy_text86290 = 'd&eacute;monstrateur';
+ document.write( '<a ' + path + '\'' + prefix + ':' + addy86290 + '\'>' );
+ document.write( addy_text86290 );
+ document.write( '<\/a>' );
+ //-->\n </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>Cet e-mail est protégé contre les robots collecteurs de mails, votre navigateur doit accepter le Javascript pour le voir
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script> ayant comme Objet (<em>Subject</em>) <span style="text-decoration: underline;">remise tp2</span> et comme contenu une archive zipp&eacute;e contenant les fichiers permettant d'ex&eacute;cuter votre programme ainsi qu'un rapport d&eacute;crivant votre exp&eacute;rience en particulier les probl&egrave;mes que vous avez rencontr&eacute;s et comment vous les avez r&eacute;solus.</p>
+<p align="left"><strong>Ce travail est &agrave; r&eacute;aliser en groupes de deux minimum-maximum.</strong></p>
+<p align="left"><strong>Date limite de remise: 4 novembre 2011 - 12:30</strong></p>
+<h2>Bar&egrave;me</h2>
+<table border="0">
+<tbody>
+<tr>
+<td align="left">Programmation&nbsp;</td>
+<td align="left">5 <br /></td>
+</tr>
+<tr>
+<td align="left">R&eacute;sultats<br /></td>
+<td align="left">2 <br /></td>
+</tr>
+<tr>
+<td align="left">Validation<br /></td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td>Rapport</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h2>D&eacute;fis suppl&eacute;mentaires</h2>
+<div style="text-align: left;">
+<ul>
+<li>Permettre la configuration des diff&eacute;rentes options: affichage de la solution, affichage ou non des bonnes lettres ou non.</li>
+<li>Implanter le undo: Control-Z annule la derni&egrave;re action, il est possible d'annuler plusieurs actions.</li>
+<li>Il pourrait &ecirc;tre int&eacute;ressant de laisser le choix &agrave; l'usager entre plusieurs grilles avant de d&eacute;buter.</li>
+<li>Si vous connaissez la programmation serveur, vous pourriez permettre de r&eacute;cup&eacute;rer des fichier puz un peu partout sur le web, les transformer et les afficher dans votre page.</li>
+</ul>
+</div>
+<p align="left">&nbsp;</p>			</td>
+		</tr>
+					<tr>
+				<td colspan="2" align="left" class="modifydate">
+					 Dernière mise à jour&nbsp;: ( 06-10-2011 )
+				</td>
+			</tr>
+					</table>
+
+		<span class="article_seperator">&nbsp;</span>
+
+					<table align="center" style="margin-top: 25px;">
+			<tr>
+									<th class="pagenav_prev">
+						<a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=121&amp;Itemid=51">
+							&lt; Précédent</a>
+					</th>
+										<td width="50">&nbsp;
+
+					</td>
+										<th class="pagenav_next">
+						<a href="http://www.iro.umontreal.ca/~lapalme/Joomla/index.php?option=com_content&amp;task=view&amp;id=123&amp;Itemid=51">
+							Suivant &gt;</a>
+					</th>
+								</tr>
+			</table>
+			</div>
+</div>
+ 
+<div class="clr"></div>
+</div>
+<div id="footer-800" ><div align="center">
+	&copy; 2011 Guy Lapalme</div>
+
+<div align="center">
+	<a href="http://www.joomla.org">Joomla!</a> est un logiciel libre distribué sous licence GNU/GPL.</div></div>
+</div>
+<div id="source">designed by <a title="professionelle mambo templates" href="http://www.madeyourweb.com">www.madeyourweb.com</a></div>
+</body>
+</html><!-- 1324700855 -->

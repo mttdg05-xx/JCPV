@@ -157,9 +157,9 @@ function parse(orig_js, filename) {
     var source = orig_js;
 
     // make sure we have unix line endings
-    console.log("-----------------------------------------");
-    console.log(source);
-console.log("-----------------------------------------");
+    //console.log("-----------------------------------------");
+    //console.log(source);
+    //console.log("-----------------------------------------");
 
     source = source.replace(/\r\n/g, '\n');
     source = source.replace(/\r/g, '\n');
@@ -170,14 +170,21 @@ console.log("-----------------------------------------");
     return ast;
 }
 
-function tagify(orig_js, filename){
+function tagify(orig_js, filename, json_elements){
   //var orig_js = document.getElementById("me").innerHTML;
   taggen(parse(orig_js, filename));
   //var myFile = fs.readFileSync('foo.js').toString('ascii');
   //var js2html = new JS2HTML(myFile);
   //console.log(js2html.insertTags(elements));
+  //var json_object = JSON.parse(json_file);
+  //console.log("@@@ " + json_object.data.length);
+  console.log(elements.length);
+  elements.push.apply(elements, json_elements);
+  console.log(elements.length);
+  console.log("<<<<<>>>>> " + JSON.stringify(json_elements));
+  console.log("@@@ " + JSON.stringify(elements));
   return htmlgen.genHtmlWithTags(orig_js, elements);
   //console.log(elements);
 }
-
+//console.log(tagify(fs.readFileSync('foo.js').toString('ascii'), 'foo.js'));
 exports.tagify = tagify;
