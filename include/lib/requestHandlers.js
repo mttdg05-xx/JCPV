@@ -48,7 +48,7 @@ function start(response, request) {
 
     
     get_json(itemList, result);
-    console.log(result);
+    //console.log(result);
 
     response.writeHead(200, {
         "Content-Type": "text/html"
@@ -108,7 +108,7 @@ function to_json(next, files, currentPath, itemList, result) {
         item_name = "" + itemPath.replace(/^.*[\\\/]/, '');
 
         if (current.substring(length - 3, length) === js_ext) {
-            console.log("=== " + itemPath);
+            //console.log("=== " + itemPath);
             files.push(rootPath + itemPath);
             result.push({
                 data: {
@@ -240,16 +240,17 @@ function loadFile() {
             if (error)  load_err(response, error);
 
             else{
-              fs.readFile('/home/a1/JCPV/include/test.json', "binary", function(err, json_file){
+              //console.log("OOOOoo " + rootPath + "/include/test.json");
+              fs.readFile(rootPath + '/include/test.json', "binary", function(err, json_file){
               if (error)  load_err(response, error);
               else{
                 json_object = JSON.parse(json_file).data;
                 length = json_object.length;
                 for(var i = 0; i < length; i++ ){
                   tmp = json_object[i];
-                  console.log("5");
-                  console.log(tmp.target_path);
-                  console.log(up_data[id]);
+                  //console.log("5");
+                  //console.log(tmp.target_path);
+                  //console.log(up_data[id]);
                   if(tmp.target_path === up_data[id]){
                     elements.push({
                       start : tmp.start,
@@ -260,7 +261,7 @@ function loadFile() {
                   }
                 }
 
-                console.log(">>>>>>>>>>>>>>>>> " + JSON.stringify(elements));
+                //console.log(">>>>>>>>>>>>>>>>> " + JSON.stringify(elements));
 
 
                 tagged_updata_files[id] = taggen.tagify(file, filename, elements);

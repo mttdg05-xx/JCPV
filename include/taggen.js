@@ -178,11 +178,11 @@ function tagify(orig_js, filename, json_elements){
   //console.log(js2html.insertTags(elements));
   //var json_object = JSON.parse(json_file);
   //console.log("@@@ " + json_object.data.length);
-  console.log(elements.length);
+  //console.log(elements.length);
   elements.push.apply(elements, json_elements);
-  console.log(elements.length);
-  console.log("<<<<<>>>>> " + JSON.stringify(json_elements));
-  console.log("@@@ " + JSON.stringify(elements));
+  //console.log(elements.length);
+  //console.log("<<<<<>>>>> " + JSON.stringify(json_elements));
+  //console.log("@@@ " + JSON.stringify(elements));
   return htmlgen.genHtmlWithTags(orig_js, elements);
   //console.log(elements);
 }
