@@ -33,9 +33,9 @@
 
 
 
-var server = require("./include/lib/server");
+var server = require("./lib/server");
 //var router = require("./include/lib/router");
-var requestHandlers = require("./include/lib/requestHandlers");
+var requestHandlers = require("./lib/requestHandlers");
 
 var currentDirectory = process.cwd();
 
