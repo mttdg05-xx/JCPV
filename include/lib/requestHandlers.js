@@ -251,7 +251,7 @@ function loadFile() {
                   //console.log("5");
                   //console.log(tmp.target_path);
                   //console.log(up_data[id]);
-                  if(tmp.target_path === up_data[id]){
+                  if(rootPath + tmp.target_path === up_data[id]){
                     elements.push({
                       start : tmp.start,
                       end : tmp.end,
