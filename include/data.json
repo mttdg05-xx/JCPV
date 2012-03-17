@@ -1,0 +1,51 @@
+{
+  "definitions" : 
+    [ 
+      { 
+        "name" : "Execution count",
+        "type" : "int",
+        "metric" : "execcount"
+      },
+      { "name" : "Coverage",
+        "type" : "percent",
+        "metric" : "coverage"
+      }
+    ],
+
+  "data" :
+    [
+      {
+        "from" : 1,
+        "to" : 15,
+        "target_path" : "../1/foo.js",
+        "info" :
+          [ 
+            {
+              "metric" : "execcount",
+              "value" : 100
+            },
+            {
+              "metric" : "coverage",
+              "value" : 1.0
+            }
+          ]
+      },
+      { 
+        "from" : 12,
+        "to" : 15,
+        "target_path" : "../1/index.js",
+        "info" :
+          [ 
+            {
+              "metric" : "execcount",
+              "value" : 10
+            },
+            {
+              "metric" : "coverage",
+              "value" : 10.0
+            }
+          ]
+      }
+
+  ]
+}
