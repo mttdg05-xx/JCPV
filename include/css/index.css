@@ -5,6 +5,20 @@ div.wrapper{
 }
 */
 
+#labels{
+  float : left;
+  width : 40%;
+}
+#attributes{
+  float : right;
+  width : 60%;
+}
+#wrapper{
+  width : 200px;
+  border : 1px;
+  
+
+}
 div.left_box{ 
     float: left;
     margin-top : 15px;
