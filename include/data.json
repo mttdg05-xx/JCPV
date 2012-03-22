@@ -2,11 +2,10 @@
   "definitions" : 
     [ 
       { 
-        "name" : "Execution count",
         "type" : "int",
         "metric" : "execcount"
       },
-      { "name" : "Coverage",
+      { 
         "type" : "percent",
         "metric" : "coverage"
       }
@@ -31,8 +30,8 @@
           ]
       },
       { 
-        "from" : 12,
-        "to" : 15,
+        "from" : 0,
+        "to" : 33,
         "target_path" : "../1/index.js",
         "info" :
           [ 

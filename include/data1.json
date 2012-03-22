@@ -2,11 +2,10 @@
   "definitions" : 
     [ 
       { 
-        "name" : "string match",
         "type" : "string",
         "metric" : "pattern"
       },
-      { "name" : "reference",
+      { 
         "type" : "reference",
         "metric" : "reference"
       }
