@@ -29,6 +29,23 @@
             }
           ]
       },
+      {
+        "from" : 26,
+        "to" : 32,
+        "target_path" : "../1/foo.js",
+        "info" :
+          [ 
+            {
+              "metric" : "execcount",
+              "value" : 47
+            },
+            {
+              "metric" : "coverage",
+              "value" : 60
+            }
+          ]
+      },
+
       { 
         "from" : 0,
         "to" : 33,

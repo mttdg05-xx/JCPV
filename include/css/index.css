@@ -7,18 +7,34 @@ div.wrapper{
 
 #labels{
   float : left;
-  width : 40%;
+  width : 35%;
 }
+
 #attributes{
   float : right;
-  width : 60%;
+  width : 65%;
 }
-#wrapper{
-  width : 200px;
-  border : 1px;
-  
+
+#color_buttons{
+  float : right;
+  width : 30%;
+  display : inline;
 
 }
+#labels_attributes{
+  float : left;
+  width : 70%;
+  border : 1px;
+  
+}
+
+#wrapper{
+  width : 400px;
+  border : 1px;
+  overflow : hidden;
+  
+}
+
 div.left_box{ 
     float: left;
     margin-top : 15px;
