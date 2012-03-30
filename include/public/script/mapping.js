@@ -8,26 +8,51 @@ function Mapping(){
 
 Mapping.prototype.matches = function(metricDef, attrib){}
 
-Mapping.prototype.setAttribute = function(metricDef, attrib, value, from, to){}
+Mapping.prototype.setAttribute = function(metricDef, attrib, value, loc_id){}
 
 function TooltipDefaultMapping(){
   this.matches = function(metricDef, attrib){
     return attrib === "tooltip";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, from, to){
-    set_tooltip(metricDef.metric, value, from, to);
+  this.setAttribute = function(metricDef, attrib, value, loc_id){
+    set_tooltip(value, loc_id);
   }
 
 }
+
+function TooltipExeccountMapping(){
+  this.matches = function(metricDef, attrib){
+    return attrib === "tooltip" && metricDef.metric === "execcount";
+  }
+
+  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){  
+     set_tooltip("execcount : " + value, loc_id);
+  }
+
+}
+
+
+function TooltipCoverageMapping(){
+  this.matches = function(metricDef, attrib){
+    return attrib === "tooltip" && metricDef.metric === "coverage";
+  }
+
+  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){  
+     set_tooltip("coverage : " + value + "%", loc_id);
+  }
+
+}
+
+
 
 function ColorDefaultMapping(){
   this.matches = function(metricDef, attrib){
     return attrib === "color";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, from, to, min, max){
-    set_color(metricDef.metric, value, from, to, min, max);
+  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){
+    set_color(value, loc_id, min, max);
   }
 
 }
@@ -37,9 +62,15 @@ function ColorReferenceMapping(){
     return attrib === "color" && metricDef.metric === "reference";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, from, to, min, max){  
-    set_color(metricDef.metric, 0, from, to, min, max);
-    set_color("first_" + metricDef.metric, 100, from, to, min, max);
+  this.setAttribute = function(metricDef, attrib, references, loc_id, min, max){  
+    //alert("loc " + loc_id);
+    //alert("vsl " + value[0]);
+    var references_id;
+    set_color(100, loc_id, min, max);
+    for(var i = 0; i < references.length; i++ ){
+      references_id = "loc" + references[i][0] + "_" + references[i][1];
+      set_color(0, references_id, min, max);
+    }
 
 
   }
@@ -62,13 +93,15 @@ function selectMapping(metricDef, attrib){
 }
 
 
-function set_tooltip(metric, tooltip, from, to){
-  $("." + metric + from + "_" + to ).attr('title', tooltip);
+function set_tooltip(tooltip, loc_id){
+  //$("." + metric).attr('title', tooltip);
+  $("#" + loc_id).attr('title', tooltip);
 }
 
-function set_color(metric, percent, from, to, min, max){
+function set_color(percent, loc_id, min, max){
   var rgb = get_color(percent, min, max);
-  $("." + metric + from + "_" + to).css('background-color',  rgb_to_hex(rgb.r, rgb.g, rgb.b));
+  $("#" + loc_id).css('background-color',  rgb_to_hex(rgb.r, rgb.g, rgb.b));
+
 }
 
 
@@ -105,7 +138,7 @@ function createOptions(metrics_defs){
 
 }
 
-function set_mapping(id, value, from, to, min, max){
+function set_mapping(id, value, loc_id, min, max){
   //alert("min : " + min + "max : " + max);
   //alert("^^ " + arguments.length);
   var current_option;
@@ -113,10 +146,10 @@ function set_mapping(id, value, from, to, min, max){
     current_option = options.data[i];
     for(var j = 0; j < current_option.attributes.length; j++){
       if(current_option.attributes[j].id === id){
-        if(arguments.length === 6)
-          current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, from, to, min, max);
+        if(arguments.length === 5)
+          current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id, min, max);
         else 
-          current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, from, to);
+          current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id);
 
 
       }
@@ -146,8 +179,12 @@ function get_metric(id){
 // UTILS 
 
 function rgb_to_hex(r, g, b){
-  if( r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
+  if( r < 0 || g < 0 || b < 0)
     return false;
+
+  r = r <= 255 ? r : 255;
+  g = g <= 255 ? g : 255;
+  b = b <= 255 ? b : 255;
 
   var r_hex = r.toString(16).length === 1 ? '0' + r.toString(16) : r.toString(16);
   var g_hex = g.toString(16).length === 1 ? '0' + g.toString(16) : g.toString(16);
@@ -185,11 +222,12 @@ function get_color(percent, min, max){
   }
 
 
-
-
-
+// default mapping are the last ones
 known_mappings.push(new TooltipDefaultMapping());
 known_mappings.push(new ColorDefaultMapping());
-known_mappings.push(new ColorReferenceMapping());
 
+// custom mappings are the first ones 
+known_mappings.push(new ColorReferenceMapping());
+known_mappings.push(new TooltipCoverageMapping());
+known_mappings.push(new TooltipExeccountMapping());
 
