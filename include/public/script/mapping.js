@@ -12,7 +12,7 @@ Mapping.prototype.setAttribute = function(metricDef, attrib, value, loc_id){}
 
 function TooltipDefaultMapping(){
   this.matches = function(metricDef, attrib){
-    return attrib === "tooltip";
+    return attrib === "tooltip" &&  metricDef.metric !== "reference";
   }
 
   this.setAttribute = function(metricDef, attrib, value, loc_id){
