@@ -58,24 +58,47 @@ function ColorDefaultMapping(){
 }
 
 function ColorReferenceMapping(){
+
+  function colorReference(source_id, actual_reference, references, min, max){
+
+    var actual_reference_id = actual_reference !== source_id ? "loc" + actual_reference[0] + "_" + actual_reference[1] : source_id;
+    var reference_id;
+
+    $("#" + actual_reference_id).mouseenter(function(){
+      set_color(100, source_id, min, max);
+
+      for(var i = 0; i < references.length; i++ ){
+        reference_id = "loc" + references[i][0] + "_" + references[i][1];
+        set_color(0, reference_id, min, max);
+      }
+    })
+    .mouseout(function(){      
+      $("#" + source_id).css('background-color',  'transparent');
+
+      for(var i = 0; i < references.length; i++ ){
+        reference_id = "loc" + references[i][0] + "_" + references[i][1];
+        $("#" + reference_id).css('background-color',  'transparent');
+      }
+    });
+  }
+
+
   this.matches = function(metricDef, attrib){
     return attrib === "color" && metricDef.metric === "reference";
   }
 
-  this.setAttribute = function(metricDef, attrib, references, loc_id, min, max){  
-    //alert("loc " + loc_id);
-    //alert("vsl " + value[0]);
+  this.setAttribute = function(metricDef, attrib, references, source_id, min, max){  
     var references_id;
-    set_color(100, loc_id, min, max);
-    for(var i = 0; i < references.length; i++ ){
-      references_id = "loc" + references[i][0] + "_" + references[i][1];
-      set_color(0, references_id, min, max);
-    }
 
+    colorReference(source_id, source_id, references, min, max);
+
+    for(var i = 0; i < references.length; i++ )
+      colorReference(source_id, references[i], references, min, max);
 
   }
 
 }
+
 
 
 
