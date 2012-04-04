@@ -117,13 +117,28 @@ function selectMapping(metricDef, attrib){
 
 
 function set_tooltip(tooltip, loc_id){
-  //$("." + metric).attr('title', tooltip);
-  $("#" + loc_id).attr('title', tooltip);
+  $("#" + loc_id).attr('title', function(i, previous_tooltip){
+    return previous_tooltip === undefined ? tooltip : previous_tooltip + "\n" + tooltip;
+  });
 }
 
 function set_color(percent, loc_id, min, max){
   var rgb = get_color(percent, min, max);
-  $("#" + loc_id).css('background-color',  rgb_to_hex(rgb.r, rgb.g, rgb.b));
+  /*
+  $("#" + loc_id).css('background-color',  function(i, previous_color){
+    if(previous_color === undefined || previous_color === "rgba(0, 0, 0, 0)")
+      return rgb_to_hex(rgb.r, rgb.g, rgb.b);
+    else{
+      alert(previous_color);
+      alert("An element can have just one color applied to it at a time. \n The first color choosen will be selected.");
+
+      return previous_color;
+
+    }
+  });
+  */
+  //alert(loc_id);
+ $("#" + loc_id).css('background-color',  rgb_to_hex(rgb.r, rgb.g, rgb.b));
 
 }
 
@@ -173,7 +188,6 @@ function set_mapping(id, value, loc_id, min, max){
           current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id, min, max);
         else 
           current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id);
-
 
       }
 
