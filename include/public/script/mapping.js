@@ -6,14 +6,16 @@ function Mapping(){}
 
 Mapping.prototype.matches = function(metricDef, attrib){}
 
-Mapping.prototype.setAttribute = function(metricDef, attrib, value, loc_id){}
+Mapping.prototype.setAttribute = function(metricDef, attrib, json_data){}
 
 function TooltipDefaultMapping(){
   this.matches = function(metricDef, attrib){
     return attrib === "tooltip" &&  metricDef.metric !== "reference";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, loc_id){
+  this.setAttribute = function(metricDef, attrib, json_data){
+    var value = json_data.value,
+        loc_id = json_data.loc_id;
     set_tooltip(value, loc_id);
   }
 
@@ -24,8 +26,10 @@ function TooltipExeccountMapping(){
     return attrib === "tooltip" && metricDef.metric === "execcount";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){  
-     set_tooltip("execcount : " + value, loc_id);
+  this.setAttribute = function(metricDef, attrib, json_data, min, max){  
+    var value = json_data.value,
+        loc_id = json_data.loc_id;
+    set_tooltip("execcount : " + value, loc_id);
   }
 
 }
@@ -36,8 +40,10 @@ function TooltipCoverageMapping(){
     return attrib === "tooltip" && metricDef.metric === "coverage";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){  
-     set_tooltip("coverage : " + value + "%", loc_id);
+  this.setAttribute = function(metricDef, attrib, json_data, min, max){  
+    var value = json_data.value,
+        loc_id = json_data.loc_id;
+    set_tooltip("coverage : " + value + "%", loc_id);
   }
 
 }
@@ -49,7 +55,11 @@ function ColorDefaultMapping(){
     return attrib === "color";
   }
 
-  this.setAttribute = function(metricDef, attrib, value, loc_id, min, max){
+  this.setAttribute = function(metricDef, attrib, json_data){
+    var min = $("#min_color").val(),
+        max = $("#max_color").val(), 
+        value = json_data.value,
+        loc_id = json_data.loc_id;
     set_color(value, loc_id, min, max);
   }
 
@@ -127,14 +137,74 @@ function ColorReferenceMapping(){
     return attrib === "color" && metricDef.metric === "reference";
   }
 
-  this.setAttribute = function(metricDef, attrib, references, source_id, min, max){  
-    var references_id;
+  this.setAttribute = function(metricDef, attrib, json_data){  
 
-    colorReference(source_id, source_id, references, min, max);
+    //alert(JSON.stringify(references));
+    var parent_id, child_id,
+        loc_id = json_data.loc_id, notParent,
+        parents = json_data.parents !== undefined ? json_data.parents : [] ,
+        children = json_data.value !== undefined ? json_data.value : [],
+        min = $("#min_color").val(),
+        max = $("#max_color").val();
 
-    for(var i = 0; i < references.length; i++ )
-      colorReference(source_id, references[i], references, min, max);
+    // If a child isn't a parent then we give it a yellow highlight when enter.
+    for(var i = 0; i < children.length; i++){
+      notParent = true;
+      for(var j = 0; j < parents.length; j++){
+        if(children[i][0] === parents[j][0] && children[i][1] === parents[j][1])
+          notParent = false;
+      }
+      if(notParent){
+        child_id = "loc" + children[i][0] + "_" + children[i][1];
+        $("#" + child_id).mouseenter(function(){
+          $("#" + child_id).css('background-color',  'yellow');
+        })
+        .mouseleave(function(){
+          $("#" + child_id).css('background-color',  'transparent');          
+        });
+      }
+    }
+    
+    $("#" + loc_id).mouseenter(function(){
 
+      $("#" + loc_id).css('background-color',  'yellow');
+
+      for(var i = 0; i < parents.length; i++ ){
+        parent_id = "loc" + parents[i][0] + "_" + parents[i][1];
+        set_color(100, parent_id, min, max);
+      }
+
+      for(var i = 0; i < children.length; i++ ){
+        child_id = "loc" + children[i][0] + "_" + children[i][1];
+        set_color(0, child_id, min, max);
+      }
+    }).mouseout(function(){
+
+      $("#" + loc_id).css('background-color',  'transparent');
+
+      for(var i = 0; i < parents.length; i++ ){
+        parent_id = "loc" + parents[i][0] + "_" + parents[i][1];
+        $("#" + parent_id).css('background-color',  'transparent');
+
+      }
+
+      for(var i = 0; i < children.length; i++ ){
+        child_id = "loc" + children[i][0] + "_" + children[i][1];
+        $("#" + child_id).css('background-color',  'transparent');
+      }
+
+
+
+
+
+
+
+
+
+
+
+    });
+      
   }
 
 }
@@ -167,7 +237,7 @@ function set_color(percent, loc_id, min, max){
 
 
 
-
+/*
 function set_mapping(id, value, loc_id, min, max){
   //alert("min : " + min + "max : " + max);
   //alert("^^ " + arguments.length);
@@ -186,8 +256,26 @@ function set_mapping(id, value, loc_id, min, max){
     }
   }
 }
+*/
+function set_mapping(json_data, id){
+  var current_option, value, loc_id;
+  for( var k = 0; k < json_data.length; k++){
 
+    value = json_data[k].value;
+    loc_id = json_data[k].loc_id;
 
+    for(var i = 0; i < options.data.length; i++){
+      current_option = options.data[i];
+      for(var j = 0; j < current_option.attributes.length; j++){
+        if(current_option.attributes[j].id === id){
+          //current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id);
+          current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, json_data[k]);
+        }
+
+      }
+    }
+  }
+}
 
 
 function get_metric(id){
@@ -203,18 +291,6 @@ function get_metric(id){
   }
  return false;
 
-}
-
-
-function applyOptionSelected(json_data, option_selected, optionPos){
-  for(var i = 0; i < json_data.length; i++){
-    if($("#attributes option:selected")[optionPos].text === "color")
-      set_mapping(option_selected, json_data[i].value, json_data[i].loc_id, $("#min_color").val(), $("#max_color").val());
-    else 
-      set_mapping(option_selected, json_data[i].value, json_data[i].loc_id);
-  }
-
-                                                        
 }
 
 

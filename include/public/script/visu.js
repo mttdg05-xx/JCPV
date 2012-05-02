@@ -56,7 +56,41 @@ function mouseout()
   }
 }
 
-document.addEventListener( 'mouseover', mouseover, false );
-document.addEventListener( 'mouseout', mouseout, false );
+
+function initVisu(){
+  document.addEventListener( 'mouseover', mouseover, false );
+  document.addEventListener( 'mouseout', mouseout, false );
+}
 
 
+
+
+/*
+function initVisu(){
+
+  $("#me").find('span')
+        .mouseenter(function(){
+          alert("1");
+          $(this).addClass('selected'); 
+        })
+        .mouseleave(function(){ 
+          alert("2");
+          $(this).removeClass("selected"); 
+        });
+  
+}
+*/
+
+/*
+function initVisu(){
+  $(".unselected").mouseenter(function(){
+    $(".unselected").css('background-color',  'yellow');
+  })
+  .mouseout(function(){
+    $(".unselected").css('background-color',  'transparent');
+  });
+  //alert( JSON.stringify($("#demo1").find("span")));
+
+}
+*/
+initVisu();

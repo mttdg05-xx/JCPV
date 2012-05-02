@@ -115,34 +115,17 @@ function setAttributesButtonClicked(up_dat, file_selected){
   }
 }
 
-
-function overlap(start1, end1, start2, end2){
-  if(start1 <= start2 && start2 <= end1 || start1 <= end2 && end2 <= end1 
-     || start2 <= start1 && start1 <= end2 || start2 <= end1 && end1 <= end2)
-    return true;
-  return false;
-
-
-}
-
-// If at the same position or at overlapping positions 
-// we have the same attribute selected then we have a conflict.
-// locs_id & attributes_selected_names should be the same size.
-function conflicting_choices(locs_id, attributes_selected_names){
-  var start1, start2, end1, end2;
-  for(var i = 0; i < locs_id.length; i++){
-    for(var j = i + 1; j < locs_id.length; j++){
-      start1 = locs_id[i].split("loc")[1].split("_")[0];
-      end1 = locs_id[i].split("loc")[1].split("_")[1];
-      start2 = locs_id[j].split("loc")[1].split("_")[0];
-      end2 = locs_id[j].split("loc")[1].split("_")[1];
-
-      // this condition attributes_selected_names[j] === 'color'
-      // could be changed to have a more general one.
-      if(overlap(start1, end1, start2, end2) && attributes_selected_names[i] === attributes_selected_names[j] && attributes_selected_names[j] === 'color')
+function isColorSelectedMult(attributes_selected){
+  var selectedOnce = false;
+  for( var i = 0; i < attributes_selected.length; i++){
+    if(attributes_selected[i].text === "color"){
+      if(selectedOnce)
         return true;
+      else selectedOnce = true;
     }
+
   }
   return false;
+
 }
 
