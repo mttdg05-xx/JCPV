@@ -1,4 +1,4 @@
- /*  Copyright (c) 2011, Universite de Montreal
+/*  Copyright (c) 2011, Universite de Montreal
  *  All rights reserved.
  *
  *  This software is licensed under the following license (Modified BSD
@@ -40,4 +40,3 @@ var requestHandlers = require("./lib/requestHandlers");
 var currentDirectory = process.cwd();
 
 server.start();
-

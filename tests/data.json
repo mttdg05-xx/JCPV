@@ -14,8 +14,8 @@
   "data" :
     [
       {
-        "from" : 1,
-        "to" : 15,
+        "from" : 32,
+        "to" : 35,
         "target_path" : "foo.js",
         "info" :
           [ 
@@ -30,8 +30,8 @@
           ]
       },
       {
-        "from" : 26,
-        "to" : 32,
+        "from" : 54,
+        "to" : 45,
         "target_path" : "foo.js",
         "info" :
           [ 
@@ -47,8 +47,8 @@
       },
 
       { 
-        "from" : 0,
-        "to" : 33,
+        "from" : 160,
+        "to" : 173,
         "target_path" : "index.js",
         "info" :
           [ 
