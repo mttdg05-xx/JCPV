@@ -20,7 +20,7 @@ function TooltipDefaultMapping() {
     this.setAttribute = function(metricDef, attrib, json_data) {
         var value = json_data.value,
             loc_id = json_data.loc_id;
-        set_tooltip(value, loc_id);
+        set_tooltip(metricDef.metric + " : " + value, loc_id);
     }
 
 }
