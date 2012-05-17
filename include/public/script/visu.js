@@ -1,7 +1,7 @@
 function contain_class(classes, className) {
     if (classes === undefined) return;
     var split = classes.split(" ");
-    for (var i = 0; i < split.length; i++) {
+    for (var i =  split.length - 1; i >= 0; i--) {
         if (split[i] === className) return true;
     }
     return false;

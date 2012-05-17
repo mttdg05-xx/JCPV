@@ -119,12 +119,12 @@ function ColorReferenceMapping() {
 
             loc_id_selector.css('background-color', 'yellow');
 
-            for (var i = 0; i < parents.length; i++) {
+            for (var i = parents.length - 1; i >= 0; i--) {
                 parent_id = "loc" + parents[i][0] + "_" + parents[i][1];
                 set_color(100, parent_id, min, max);
             }
 
-            for (var i = 0; i < children.length; i++) {
+            for (var i = children.length - 1; i >= 0; i--) {
                 child_id = "loc" + children[i][0] + "_" + children[i][1];
                 set_color(0, child_id, min, max);
             }
@@ -133,12 +133,12 @@ function ColorReferenceMapping() {
             // reset
             loc_id_selector.css('background-color', '');
 
-            for (var i = 0; i < parents.length; i++) {
+            for (var i = parents.length - 1; i >= 0; i--) {
                 parent_id = "loc" + parents[i][0] + "_" + parents[i][1];
                 $("#" + parent_id).css('background-color', '');
             }
 
-            for (var i = 0; i < children.length; i++) {
+            for (var i = children.length; i >= 0; i--){
                 child_id = "loc" + children[i][0] + "_" + children[i][1];
                 $("#" + child_id).css('background-color', '');
             }
@@ -178,14 +178,14 @@ function set_color(percent, loc_id, min, max) {
 
 function set_mapping(json_data, id) {
     var current_option, value, loc_id;
-    for (var k = 0; k < json_data.length; k++) {
+    for (var k = json_data.length - 1; k >= 0; k--) {
 
         value = json_data[k].value;
         loc_id = json_data[k].loc_id;
 
-        for (var i = 0; i < options.data.length; i++) {
+        for (var i = options.data.length - 1; i >= 0; i--) {
             current_option = options.data[i];
-            for (var j = 0; j < current_option.attributes.length; j++) {
+            for (var j = current_option.attributes.length - 1; j >= 0; j--) {
                 if (current_option.attributes[j].id === id) {
                     //current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, value, loc_id);
                     current_option.attributes[j].setAttribute(current_option.metric_def, current_option.attributes[j].name, json_data[k]);
@@ -200,9 +200,9 @@ function set_mapping(json_data, id) {
 function get_metric(id) {
     var current_option;
 
-    for (var i = 0; i < options.data.length; i++) {
+    for (var i =  options.data.length - 1; i >= 0; i--) {
         current_option = options.data[i];
-        for (var j = 0; j < current_option.attributes.length; j++) {
+        for (var j = current_option.attributes.length - 1; j >= 0; j--) {
             if (current_option.attributes[j].id === id) {
                 return current_option.metric_def.metric;
             }

@@ -1,10 +1,9 @@
+
 // If the color option is unselected/selected => hide/show color inputs.
-
-
 function checkOptionsSelected() {
     var options = document.getElementsByTagName("option");
     var color_buttons_selector = $("#color_buttons");
-    for (var i = 0; i < options.length; i++) {
+    for (var i = options.length - 1; i >= 0; i--) {
         if (options[i].selected && options[i].text === "color") {
             color_buttons_selector.show();
             return;
@@ -29,7 +28,7 @@ function init() {
         "plugins": ["themes", "json_data", "ui"]
     }).bind("select_node.jstree", function(event, data) {
         $.get(data.rslt.obj.data("id"), function(dat) {
-            $("#codeView").html(dat);
+            $(".prettyprint").html(dat);
             up_dat = dat;
             file_selected = data.rslt.obj.data("id").split("=")[1];
             prettyPrint();
@@ -39,7 +38,7 @@ function init() {
         json_definitions = JSON.parse(up_json_def.responseText);
         if (json_definitions !== undefined) {
             options = createOptions(json_definitions);
-            for (var i = 0; i < options.data.length; i++) {
+            for (var i = options.data.length - 1; i >= 0; i--) {
                 tmp = options.data[i];
                 select = document.createElement("SELECT");
                 select.onchange = checkOptionsSelected;
@@ -50,7 +49,7 @@ function init() {
                 opt.innerText = "Attributes";
                 opt.value = "0";
                 select.appendChild(opt);
-                for (var j = 0; j < tmp.attributes.length; j++) {
+                for (var j = tmp.attributes.length - 1; j >= 0; j--) {
                     opt = document.createElement("OPTION");
                     opt.innerText = tmp.attributes[j].name;
                     opt.value = tmp.attributes[j].id;
@@ -72,7 +71,7 @@ function init() {
                 attributes_selected_values = [];
                 json_values = [];
                 selects_number = $("#attributes  option:selected").length;
-                $("#codeView").html(up_dat);
+                $(".prettyprint").html(up_dat);
                 prettyPrint();
                 if (isColorSelectedMult($("#attributes option:selected"))) {
                     alert("Color can't be selected more than one time!");

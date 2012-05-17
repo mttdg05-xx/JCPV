@@ -4,11 +4,11 @@
 function createOptions(metrics_defs) {
     var current_metric_def, current_attribute, mapping, id = 1,
         attributes_match = [];
-    for (var i = 0; i < metrics_defs.length; i++) {
+    for (var i = metrics_defs.length - 1; i >= 0; i--) {
         current_metric_def = metrics_defs[i];
         attributes_match = [];
 
-        for (var j = 0; j < attributes.length; j++) {
+        for (var j = attributes.length - 1; j >= 0; j--) {
             current_attribute = attributes[j];
             mapping = selectMapping(current_metric_def, current_attribute);
             if (mapping !== undefined) {
@@ -17,10 +17,8 @@ function createOptions(metrics_defs) {
                     name: current_attribute,
                     setAttribute: mapping.setAttribute
                 });
-
             }
         }
-
         if (attributes_match.length !== 0) {
             options.data.push({
                 metric_def: current_metric_def,
@@ -61,7 +59,6 @@ function hex_to_rgb(hex) {
  *  get a color between min |---------------| max
  *  according to the percent given
  */
-
 function get_color(percent, min, max) {
     if (0 > percent || percent > 100) return false;
     var rgb_min = hex_to_rgb(min);
@@ -76,46 +73,14 @@ function get_color(percent, min, max) {
     };
 }
 
-// the button Set attributes is clicked => we apply the option(s) selected.
-
-
-function setAttributesButtonClicked(up_dat, file_selected) {
-    var attributes_selector = $("#attributes  option:selected");
-    var selects_number = attributes_selector.length;
-    var option_selected, metric, json_data;
-    $("#codeView").html(up_dat);
-    prettyPrint();
-    for (var k = 0; k < selects_number; k++) {
-        option_selected = parseInt(attributes_selector[k].value);
-        if (option_selected !== 0) {
-            metric = get_metric(option_selected);
-            jQuery.ajax({
-                url: "utils/fetch_json_info?file_selected=" + file_selected + "&metric=" + metric,
-                complete: function(data) {
-                    json_data = JSON.parse(data.responseText);
-                    for (var i = 0; i < json_data.length; i++) {
-                        if (attributes_selector[k].text === "color") set_mapping(option_selected, json_data[i].value, json_data[i].loc_id, $("#min_color").val(), $("#max_color").val());
-                        else set_mapping(option_selected, json_data[i].value, json_data[i].loc_id);
-                    }
-                },
-                async: false
-            });
-        }
-    }
-}
-
 // return true if the color option is selected more than one time.
-
-
 function isColorSelectedMult(attributes_selected) {
-    var selectedOnce = false;
-    for (var i = 0; i < attributes_selected.length; i++) {
-        if (attributes_selected[i].text === "color") {
-            if (selectedOnce) return true;
-            else selectedOnce = true;
-        }
-
+  var selectedOnce = false;
+  for (var i = attributes_selected.length - 1; i >= 0; i--) {
+    if (attributes_selected[i].text === "color") {
+      if (selectedOnce) return true;
+      else selectedOnce = true;
     }
-    return false;
-
+  }
+  return false;
 }

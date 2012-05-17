@@ -1,48 +1,50 @@
-<html>
-  <head>
-      <link href=/include/prettify/prettify.css type="text/css" rel="stylesheet" />
-      <link href=/include/css/index.css type="text/css" rel="stylesheet" />
-      <link href=/include/public/css/visu.css type="text/css" rel="stylesheet" />
-      <script type="text/javascript" src=/include/prettify/prettify.js> </script>
-      <script type="text/javascript" src=/include/jquery-1.7.1.min.js> </script>
-      <script type="text/javascript" src=/include/jscolor/jscolor.js> </script>
-      <script type="text/javascript" src=/include/public/script/mapping.js> </script>
-      <script type="text/javascript" src=/include/public/script/visu.js> </script>
-      <script type="text/javascript" src=/include/public/script/utils.js> </script>
-      <script type="text/javascript" src=/include/public/script/client.js> </script>
-      <script type="text/javascript" src=/include/jquery.jstree.js> </script>
-      <script type="text/javascript" src=/include/json2.js> </script> 
-  </head> 
-  <body> 
-      <div id = "wrapper"> 
-          <div id = "labels_attributes"> 
-              <div id = "labels"> 
-              </div> 
-              <div id = "attributes"> 
-              </div>
-          </div> 
-              <br/> 
-              <span id = "color_buttons" style = "display : none"> 
-                  <form> 
-                      <label> Min : </label> 
-                      <input id = "min_color" class="color" value="00FF00"/> 
-                      <label> Max : </label> <input id = "max_color" class="color" value="FF0000"/> 
-                  </ form> 
-              </span> 
-      </div> 
-      <div id = "treeView" class = "left_box"> 
-      </div> 
-      <pre class = "prettyprint"> 
-          <div id = "codeView" class = "right_box"> 
-          </div>
-      </pre> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <title> JCPV </title>
+      <link href="/include/prettify/prettify.css" type="text/css" rel="stylesheet" />
+      <link href="/include/public/css/index.css" type="text/css" rel="stylesheet" />
+      <link href="/include/public/css/visu.css" type="text/css" rel="stylesheet" />
+      <script type="text/javascript" src="/include/prettify/prettify.js"> </script>
+      <script type="text/javascript" src="/include/jquery-1.7.1.min.js"> </script>
+      <script type="text/javascript" src="/include/jscolor/jscolor.js"> </script>
+      <script type="text/javascript" src="/include/public/script/mapping.js"> </script>
+      <script type="text/javascript" src="/include/public/script/visu.js"> </script>
+      <script type="text/javascript" src="/include/public/script/utils.js"> </script>
+      <script type="text/javascript" src="/include/public/script/client.js"> </script>
+      <script type="text/javascript" src="/include/jquery.jstree.js"> </script>
+      <script type="text/javascript" src="/include/json2.js"> </script> 
+    </head> 
+    <body> 
+        <div id = "wrapper"> 
+            <div id = "labels_attributes"> 
+                <div id = "labels"> 
+                </div> 
+                <div id = "attributes"> 
+                </div>
+            </div> 
+                <br/> 
+                <span id = "color_buttons" style = "display : none"> 
+                  <label> Min : </label> 
+                  <input id = "min_color" class="color" value="00FF00"/> 
+                  <label> Max : </label> <input id = "max_color" class="color" value="FF0000"/>      
+                </span> 
+        </div> 
+        <div id = "treeView" class = "left_box"> 
+        </div> 
+      
+        <pre class = "prettyprint"> 
+        </pre>
+        
+        
 
-      <script>
-        $(document).ready(function(){
-          init();
-        });
-      </script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            init();
+          });
+        </script>
 
     </body>
 
-</html>
+  </html>
