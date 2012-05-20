@@ -138,7 +138,7 @@ function ColorReferenceMapping() {
                 $("#" + parent_id).css('background-color', '');
             }
 
-            for (var i = children.length; i >= 0; i--){
+            for (var i = children.length - 1; i >= 0; i--){
                 child_id = "loc" + children[i][0] + "_" + children[i][1];
                 $("#" + child_id).css('background-color', '');
             }

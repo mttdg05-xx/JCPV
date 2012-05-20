@@ -13,12 +13,10 @@ function checkOptionsSelected() {
 }
 
 function init() {
-    var options, length, option_selected, metric, timp, button, button_title, label, label_title, select, attribute, opt, loc_id, locs_id = [],
-        attributes_selected_names = [];
-    var attributes_selected_values = [],
-        json_values = [],
-        up_dat = "";
-    var file_selected;
+    var options, length, option_selected, metric, tmp, button, button_title, label, label_title, 
+        select, attribute, opt, loc_id, locs_id = [], attributes_selected_names = [], attributes_selected_values = [],
+        json_values = [], dataRsltObjData,  up_dat = "",  file_selected;
+
     $("#treeView").jstree({
         "json_data": {
             "ajax": {
@@ -26,18 +24,27 @@ function init() {
             }
         },
         "plugins": ["themes", "json_data", "ui"]
-    }).bind("select_node.jstree", function(event, data) {
-        $.get(data.rslt.obj.data("id"), function(dat) {
+    }).bind("select_node.jstree", function(event, data) {// This is what happens we the user click on a node(file/folder).
+        dataRsltObjData = data.rslt.obj.data("id");
+        // if it's undefined then the user probably
+        // clicked on a folder => there's nothing 
+        // to show.
+        if(dataRsltObjData){
+          $.get(dataRsltObjData, function(dat) {
             $(".prettyprint").html(dat);
             up_dat = dat;
-            file_selected = data.rslt.obj.data("id").split("=")[1];
+            file_selected = dataRsltObjData.split("=")[1];
             prettyPrint();
-        });
+          });
+        }
     });
+    // -1 is for the json definition
     $.get("/updata?id=-1").complete(function(up_json_def) {
-        json_definitions = JSON.parse(up_json_def.responseText);
-        if (json_definitions !== undefined) {
-            options = createOptions(json_definitions);
+        json_definitions = up_json_def.responseText;
+        // Check if a json file is given.
+        // If it's undefined then is no options!
+        if (json_definitions !== "undefined") {
+            options = createOptions(JSON.parse(json_definitions));
             for (var i = options.data.length - 1; i >= 0; i--) {
                 tmp = options.data[i];
                 select = document.createElement("SELECT");
@@ -66,7 +73,7 @@ function init() {
             document.getElementById("attributes").appendChild(document.createElement("br"));
             document.getElementById("attributes").appendChild(button);
             checkOptionsSelected();
-            $("button:first").click(function() {
+            $("button:first").click(function() {// set attributes button is clicked
                 locs_id = [];
                 attributes_selected_values = [];
                 json_values = [];
