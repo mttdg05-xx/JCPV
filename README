@@ -1,2 +1,6 @@
-ex : usage : node index.js tests --json tests/data.json
-             node index.js tests
+usage : node index.js path/to/folder --json path/to/json/file
+        or 
+ 	node index.js path/to/folder
+
+ex : node index.js tests --json tests/data.json
+     node index.js tests
