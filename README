@@ -1,0 +1,2 @@
+ex : usage : node index.js tests --json tests/data.json
+             node index.js tests
